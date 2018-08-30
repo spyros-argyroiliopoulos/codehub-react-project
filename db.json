@@ -1,0 +1,8 @@
+{
+  "posts": [
+    { "id": 1, "title": "json-server rocks", "author": "tsevdos" },
+    { "id": 1, "title": "Another entry", "author": "tsevdos" }
+  ],
+  "profile": { "name": "tsevdos", "bio": "front-end developer" }
+}
+
