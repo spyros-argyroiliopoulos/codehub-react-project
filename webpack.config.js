@@ -7,7 +7,7 @@ const htmlPlugin = new HtmlWebPackPlugin({
 });
 
 module.exports = {
-  entry: "./app/index",
+  entry: "./app/index.jsx",
   output: {
     path: path.resolve('dist'),
     filename: "bundle.js",
@@ -25,6 +25,7 @@ module.exports = {
     ]
   },
   devServer: {
+    overlay: true,
     historyApiFallback: true
   },
   resolve: {
