@@ -5,4 +5,4 @@ function Test() {
   return <div>Hello World</div>;
 }
 
-ReactDOM.render(<Test />, document.getElementById('app'));
+ReactDOM.render(<Test />, document.getElementById("app"));
