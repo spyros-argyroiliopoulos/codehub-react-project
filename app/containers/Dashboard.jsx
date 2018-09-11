@@ -1,20 +1,48 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import React, { Component } from "react";
+import Hero from "components/Hero";
+import InfoTile from "components/InfoTile";
+import ProgramsTable from "components/ProgramsTable";
+import { fetchStats, fetchPrograms } from "../api";
 
-function Dashboard() {
-  return (
-    <h1>Dashboard</h1>
-  );
+class Dashboard extends Component {
+  state = {
+    stats: null,
+    programs: null
+  };
+
+  componentDidMount() {
+    fetchStats()
+      .then(({ data }) => {
+        this.setState({ stats: data });
+      });
+
+    fetchPrograms()
+      .then(({ data }) => {
+        this.setState({ programs: data });
+      });
+  }
+
+  render() {
+    const { stats, programs } = this.state;
+
+    return (
+      <div>
+        <Hero
+          title="Hello, tsevdos."
+          subtitle="I hope you are having a great day!"
+        />
+        <section className="info-tiles">
+          <div className="tile is-ancestor has-text-centered">
+            {
+              stats &&
+                stats.map(({ id, ...rest }) => <InfoTile key={id} {...rest} />)
+            }
+          </div>
+        </section>
+        { programs && <ProgramsTable title="Last 5 Programs" data={programs} /> }
+      </div>
+    );
+  }
 }
-
-// Dashboard.propTypes = {
-//   location: PropTypes.object.isRequired,
-//   classes: PropTypes.object.isRequired,
-//   anchorEl: PropTypes.object,
-//   handleIconClick: PropTypes.func.isRequired,
-//   handleCloseMenu: PropTypes.func.isRequired,
-//   handleGoToURLAndCloseMenu: PropTypes.func.isRequired
-// };
 
 export default Dashboard;
