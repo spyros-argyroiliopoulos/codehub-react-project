@@ -4,8 +4,9 @@ import { PageHeader, Row, Col, Button } from "react-bootstrap";
 import Instructor from "./Instructor";
 
 const CourseItem = ({
-  id, title, imagePath, price, dates, duration, open, description, instructors, handleDelete
+  id, title, imagePath, price, dates, duration, open, description, instructors, handleUpdate, handleDelete
 }) => {
+
   const { normal } = price;
   const { start_date: startDate, end_date: endDate } = dates;
   const startDateFormatted = new Date(startDate).toLocaleDateString("el-gr");
@@ -21,18 +22,18 @@ const CourseItem = ({
       <PageHeader>{title} <small>({id})</small></PageHeader>
       <div style={bgImage}></div>
       <Row>
-        <Col xs={6}>
+        <Col xs={3}>
           <h3>Price: { normal } €</h3>
           <h3>Bookable: { open ? "✔" : "✖" }</h3>
         </Col>
-        <Col xs={6}>
+        <Col xs={9}>
           <h3 className="text-right">Duration: { duration }</h3>
           <h3 className="text-right">Dates: { startDateFormatted } - { endDateFormatted }</h3>
         </Col>
       </Row>
       <p className="lead m-top" dangerouslySetInnerHTML={{ __html: description }} />
       <div className="clearfix">
-        <Button bsStyle="primary" bsSize="large">Edit</Button>&nbsp;
+        <Button bsStyle="primary" bsSize="large" onClick={handleUpdate}>Edit</Button>&nbsp;
         <Button bsStyle="danger" bsSize="large" onClick={handleDelete}>Delete</Button>&nbsp;
       </div>
       <h2>Instructors</h2>

@@ -12,7 +12,7 @@ const CourseListItem = ({
   const endDateFormatted = new Date(endDate).toLocaleDateString("el-gr");
 
   return (
-    <Col xs={4} className={index % 3 === 0 && "clear-left"}>
+    <Col xs={6} md={4} className={index % 3 === 0 && "clear-left"}>
       <Panel bsStyle="primary">
         <Panel.Heading>
           <Panel.Title><h4>{ title }</h4></Panel.Title>

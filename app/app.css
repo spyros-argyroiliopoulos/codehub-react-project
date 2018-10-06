@@ -17,3 +17,12 @@
 .panel-info {
   padding: 1em;
 }
+
+.form-label {
+  padding-top: 10px;
+}
+
+.textarea-form {
+	height: 200px;
+	width: 100%;
+}
