@@ -1,29 +1,24 @@
 import React, { Component } from "react";
 import { Jumbotron, Row, Col } from "react-bootstrap";
 import InfoTile from "components/InfoTile";
-import ProgramsTable from "components/ProgramsTable";
-import { fetchStats, fetchPrograms } from "../api";
+import CoursesTable from "components/CoursesTable";
+import { fetchStats, fetchCourses } from "../api";
 
 class Dashboard extends Component {
   state = {
     stats: null,
-    programs: null
+    courses: null
   };
 
-  componentDidMount() {
-    fetchStats()
-      .then(({ data }) => {
-        this.setState({ stats: data });
-      });
+  async componentDidMount() {
+    const stats = await fetchStats();
+    const courses = await fetchCourses();
 
-    fetchPrograms()
-      .then(({ data }) => {
-        this.setState({ programs: data });
-      });
+    this.setState({ stats, courses });
   }
 
   render() {
-    const { stats, programs } = this.state;
+    const { stats, courses } = this.state;
 
     return (
       <>
@@ -50,8 +45,8 @@ class Dashboard extends Component {
         <Row>
           <Col xs={12}>
             {
-              programs &&
-                <ProgramsTable title="Last 5 Programs" data={programs} />
+              courses &&
+                <CoursesTable title="Last 5 Courses" data={courses} />
             }
           </Col>
         </Row>

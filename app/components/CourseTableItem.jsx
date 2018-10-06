@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-const EventsTableItem = ({ id, title, open, price, dates }) => {
+const CourseTableItem = ({ id, title, open, price, dates }) => {
   const { normal } = price;
   const { start_date: startDate, end_date: endDate } = dates;
   const startDateFormatted = new Date(startDate).toLocaleDateString("el-gr");
@@ -13,16 +13,16 @@ const EventsTableItem = ({ id, title, open, price, dates }) => {
       <td>ℹ</td>
       <td>{ title }</td>
       <td>{ open ? "✔" : "✖" }</td>
-      <td>{ normal }</td>
+      <td>{ normal } €</td>
       <td>{ startDateFormatted } - { endDateFormatted }</td>
       <td className="has-text-right">
-        <Link to={`/programs/${id}`} className="btn btn-info btn-xs pull-right">View details</Link>
+        <Link to={`/courses/${id}`} className="btn btn-info btn-xs pull-right">View details</Link>
       </td>
     </tr>
   );
 };
 
-EventsTableItem.propTypes = {
+CourseTableItem.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   open: PropTypes.bool.isRequired,
@@ -36,4 +36,4 @@ EventsTableItem.propTypes = {
   }).isRequired,
 };
 
-export default EventsTableItem;
+export default CourseTableItem;

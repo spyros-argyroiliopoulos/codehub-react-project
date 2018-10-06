@@ -2,10 +2,10 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route } from "react-router-dom";
 import Header from "./components/Header";
-import { Grid, Row, Col } from "react-bootstrap";
+import { Grid } from "react-bootstrap";
 import Dashboard from "./containers/Dashboard";
-import Programs from "./containers/Programs";
-import Students from "./containers/Students";
+import Courses from "./containers/Courses";
+import Course from "./containers/Course";
 import "./app.css";
 
 ReactDOM.render(
@@ -14,8 +14,8 @@ ReactDOM.render(
       <Header />
       <Grid>
         <Route exact path="/" component={Dashboard} />
-        <Route exact path="/programs" component={Programs} />
-        <Route exact path="/students" component={Students} />
+        <Route exact path="/courses" component={Courses} />
+        <Route exact path="/courses/:id" component={Course} />
       </Grid>
     </>
   </BrowserRouter>,

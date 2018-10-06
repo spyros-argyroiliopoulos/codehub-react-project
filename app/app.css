@@ -5,3 +5,15 @@
 .no-margin {
   margin: 0;
 }
+
+.m-top {
+  margin-top: 1em;
+}
+
+.clear-left {
+  clear: left;
+}
+
+.panel-info {
+  padding: 1em;
+}

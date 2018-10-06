@@ -14,19 +14,11 @@ const Header = () => (
         <Nav>
           <NavItem
             componentClass={Link}
-            to="/programs"
-            href="/programs"
-            active={location.pathname === "/programs"}
+            to="/courses"
+            href="/courses"
+            active={location.pathname === "/courses"}
           >
-            Programs
-          </NavItem>
-          <NavItem
-            componentClass={Link}
-            to="/students"
-            href="/students"
-            active={location.pathname === "/students"}
-          >
-            Students
+            Courses
           </NavItem>
         </Nav>
       </Col>
