@@ -3,7 +3,9 @@ import PropTypes from "prop-types";
 import { PageHeader, Row, Col, Button } from "react-bootstrap";
 import Instructor from "./Instructor";
 
-const CourseItem = ({ id, title, imagePath, price, dates, duration, open, description, instructors }) => {
+const CourseItem = ({
+  id, title, imagePath, price, dates, duration, open, description, instructors, handleDelete
+}) => {
   const { normal } = price;
   const { start_date: startDate, end_date: endDate } = dates;
   const startDateFormatted = new Date(startDate).toLocaleDateString("el-gr");
@@ -31,7 +33,7 @@ const CourseItem = ({ id, title, imagePath, price, dates, duration, open, descri
       <p className="lead m-top" dangerouslySetInnerHTML={{ __html: description }} />
       <div className="clearfix">
         <Button bsStyle="primary" bsSize="large">Edit</Button>&nbsp;
-        <Button bsStyle="danger" bsSize="large">Delete</Button>&nbsp;
+        <Button bsStyle="danger" bsSize="large" onClick={handleDelete}>Delete</Button>&nbsp;
       </div>
       <h2>Instructors</h2>
       {
@@ -58,6 +60,7 @@ CourseItem.propTypes = {
   open: PropTypes.bool.isRequired,
   description: PropTypes.string.isRequired,
   instructors: PropTypes.array.isRequired,
+  handleDelete: PropTypes.func.isRequired
 };
 
 export default CourseItem;

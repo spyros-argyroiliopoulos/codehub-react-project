@@ -21,3 +21,6 @@ export const fetchInstructors = (ids) => {
 
   return axios.get(`${API_BASE_URL}/${INSTRUCTORS}?${query}`).then(({ data }) => data);
 };
+
+export const deleteCourse = (id) => axios.delete(`${API_BASE_URL}/${COURSES}/${id}`)
+  .then(({ data }) => data);

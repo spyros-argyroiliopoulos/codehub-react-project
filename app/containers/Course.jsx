@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 import Loader from "components/Loader/Loader";
 import CourseItem from "components/CourseItem";
-import { fetchCourse, fetchInstructors } from "../api";
+import { fetchCourse, fetchInstructors, deleteCourse as deleteCourseApi } from "../api";
 
 class Course extends Component {
   state = {
@@ -27,8 +28,12 @@ class Course extends Component {
     this.setState({ showDeleteModal: false });
   }
 
-  deleteCourse = () => {
-    // console.log('deleteCourse');
+  deleteCourse = async () => {
+    const { course } = this.state;
+    const { history } = this.props;
+
+    await deleteCourseApi(course.id);
+    history.push("/courses");
   }
 
   render() {
@@ -36,22 +41,25 @@ class Course extends Component {
 
     return (
       <>
-        <Modal show={showDeleteModal} onHide={this.hideDeleteModal}>
-          <Modal.Header closeButton>
-            <Modal.Title>Danger</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <h4>Are you sure you want to delete this course?</h4>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.hideDeleteModal}>Cancel</Button>
-            <Button bsStyle="primary" onClick={this.deleteCourse}>Delete</Button>
-          </Modal.Footer>
-        </Modal>
+        {
+          course &&
+            <Modal show={showDeleteModal} onHide={this.hideDeleteModal}>
+              <Modal.Header closeButton>
+                <Modal.Title>Danger</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <h4>Are you sure you want to delete &quot;{ course.title }&quot; course?</h4>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button onClick={this.hideDeleteModal}>Cancel</Button>
+                <Button bsStyle="primary" onClick={this.deleteCourse}>Delete</Button>
+              </Modal.Footer>
+            </Modal>
+        }
 
         {
           course
-            ? <CourseItem {...course} instructors={instructors} />
+            ? <CourseItem {...course} handleDelete={this.showDeleteModal} instructors={instructors} />
             : <Loader />
         }
       </>
@@ -59,4 +67,4 @@ class Course extends Component {
   }
 }
 
-export default Course;
+export default withRouter(Course);
