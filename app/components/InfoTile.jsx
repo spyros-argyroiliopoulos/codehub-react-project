@@ -1,12 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Panel, Badge } from "react-bootstrap";
 
 const InfoTile = ({ amount, title }) => (
-  <div className="tile is-parent">
-    <article className="tile is-child box">
-      <p className="title">{ amount }</p>
-      <p className="subtitle">{ title }</p>
-    </article>
+  <div>
+  	<Panel>
+      <Panel.Body>{ title }: <Badge pullRight>{ amount }</Badge></Panel.Body>
+  	</Panel>
+
   </div>
 );
 

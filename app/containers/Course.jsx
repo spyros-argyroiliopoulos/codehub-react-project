@@ -4,7 +4,9 @@ import { Modal, Button } from "react-bootstrap";
 import Loader from "components/Loader/Loader";
 import CourseItem from "components/CourseItem";
 import CourseForm from "components/CourseForm";
-import { fetchCourse, fetchInstructors, fetchCourseInstructors, putCourse, deleteCourse as deleteCourseApi } from "../api";
+import ModalForm from "components/ModalForm";
+import {validateForm} from "../common/validation";
+import { fetchCourse, fetchInstructors, fetchCourseInstructors, updateCourse, deleteCourse as deleteCourseApi } from "../api";
 
 class Course extends Component {
   state = {
@@ -12,7 +14,7 @@ class Course extends Component {
     courseInstructors: null,
     instructors: null,
     deleteModalIsShown: false,
-    updateModalIsShown: false,
+    editModalIsShown: false,
     editFields: {}
   };
 
@@ -32,8 +34,8 @@ class Course extends Component {
     history.push("/courses");
   }
 
-  handleUpdateModal = () => {
-    this.setState((prevState) => ({ updateModalIsShown: !prevState.updateModalIsShown }));
+  handleEditModal = () => {
+    this.setState((prevState) => ({ editModalIsShown: !prevState.editModalIsShown }));
   }
 
   handleDeleteModal = () => {
@@ -44,70 +46,41 @@ class Course extends Component {
     const { editFields } = this.state;
     const { history } = this.props;
 
-    await putCourse(editFields);
+    await updateCourse(editFields);
     history.push("/courses");
   }
 
   onChangeField = (type, value) => {
-    this.setState((prevState) => {
-      if (type === 'early_bird' || type === 'normal') {
-       return {
-          editFields: {
-            ...prevState.editFields,
-            price:{
-              ...prevState.editFields.price,
-              [type]: parseInt(value, 10)
-            }
-          }
-        }
-      } else if (type === 'start_date' || type === 'end_date') {
-       return {
-          editFields: {
-            ...prevState.editFields,
-            dates:{
-              ...prevState.editFields.dates,
-              [type]: value
-            }
-          }
-        }
-      } else if (type === 'instructors') {
-       return {
-          editFields: {
-            ...prevState.editFields,
-            [type]: [value]
-          }
-        }
+    this.setState((prevState) => ({
+      editFields: {
+        ...prevState.editFields,
+        [type]: value
       }
-     return {
-        editFields: {
-          ...prevState.editFields,
-          [type]: value
-        }
-      }
-    });
+    }))
   }
 
   render() {
-    const { course, instructors, courseInstructors, deleteModalIsShown, updateModalIsShown, editFields} = this.state;
+    const { course, instructors, courseInstructors, deleteModalIsShown, editModalIsShown, editFields} = this.state;
 
     return (
       <>
-        <Modal show={updateModalIsShown} onHide={this.handleUpdateModal}>
-          <Modal.Header closeButton>
-            <Modal.Title>Update Course</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <CourseForm
-              {...editFields}
-              allInstructors={instructors}
-              onChangeField={this.onChangeField}
-            />
-          </Modal.Body>
-          <Modal.Footer>
-            <Button onClick={this.handleUpdateModal}>Cancel</Button>
-            <Button bsStyle="primary" onClick={this.updateCourse}>Update</Button>
-          </Modal.Footer>
-        </Modal>
+        {
+          course &&
+            <ModalForm
+              addModalIsShown={editModalIsShown}
+              handleAddModal={this.handleEditModal}
+              onAction={this.updateCourse}
+              modalTitle="Edit Course"
+              buttonTitle="Edit"
+              submitIsEnabled={validateForm(editFields)}
+            >
+              <CourseForm
+                {...editFields}
+                allInstructors={instructors}
+                onChangeField={this.onChangeField}
+              />
+            </ModalForm>
+        }
         {
           course &&
             <Modal show={deleteModalIsShown} onHide={this.handleDeleteModal}>
@@ -128,7 +101,7 @@ class Course extends Component {
             ? <CourseItem
                 {...course}
                 instructors={courseInstructors}
-                handleUpdate={this.handleUpdateModal}
+                handleEdit={this.handleEditModal}
                 handleDelete={this.handleDeleteModal}
               />
             : <Loader />

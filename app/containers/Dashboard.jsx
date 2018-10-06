@@ -4,6 +4,8 @@ import InfoTile from "components/InfoTile";
 import CoursesTable from "components/CoursesTable";
 import { fetchStats, fetchCourses } from "../api";
 
+const lastCourseCounter = 5;
+
 class Dashboard extends Component {
   state = {
     stats: null,
@@ -19,7 +21,6 @@ class Dashboard extends Component {
 
   render() {
     const { stats, courses } = this.state;
-
     return (
       <>
         <Row>
@@ -35,7 +36,7 @@ class Dashboard extends Component {
           {
             stats &&
               stats.map(({ id, ...rest }) =>
-                <Col xs={3} key={id}>
+                <Col key={id} xs={12} sm={6} md={3}>
                   <InfoTile {...rest} />
                 </Col>
               )
@@ -46,7 +47,10 @@ class Dashboard extends Component {
           <Col xs={12}>
             {
               courses &&
-                <CoursesTable title="Last 5 Courses" data={courses} />
+                <CoursesTable
+                  title={`Last ${lastCourseCounter} Courses`}
+                  data={courses}
+                  lastCourseCounter={lastCourseCounter}/>
             }
           </Col>
         </Row>

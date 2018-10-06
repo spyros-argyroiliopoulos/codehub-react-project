@@ -4,7 +4,11 @@ import { Link } from "react-router-dom";
 import { Panel, Table } from "react-bootstrap";
 import CourseTableItem from "components/CourseTableItem";
 
-const CoursesTable = ({ title, data }) => {
+const CoursesTable = ({ title, data, lastCourseCounter }) => {
+  const allCourses = data.length;
+  const lastCources = allCourses > lastCourseCounter ? 
+    data.slice(Math.max(allCourses - lastCourseCounter, 1)) : data; 
+
   return (
     <Panel bsStyle="primary">
       <Panel.Heading>
@@ -23,7 +27,7 @@ const CoursesTable = ({ title, data }) => {
             </tr>
           </thead>
           <tbody>
-            { data.map((program) => <CourseTableItem key={program.id} {...program} />) }
+            { lastCources.map((program) => <CourseTableItem key={program.id} {...program} />) }
           </tbody>
         </Table>
         <Panel.Footer className="clearfix">

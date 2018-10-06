@@ -22,16 +22,11 @@ export const fetchCourse = (id) => axios.get(`${API_BASE_URL}/${COURSES}/${id}`)
 export const fetchCourseInstructors = (ids) => {
   const query = ids.map((id) => `id=${id}&`).join("").slice(0, -1);
 
-  return axios.get(`${API_BASE_URL}/${INSTRUCTORS}?${query}`).then(({ data }) => data);
+  return query ? axios.get(`${API_BASE_URL}/${INSTRUCTORS}?${query}`).then(({ data }) => data) : [];
 };
 
-export const deleteCourse = (id) => axios.delete(`${API_BASE_URL}/${COURSES}/${id}`)
-  .then(({ data }) => data);
+export const deleteCourse = (id) => axios.delete(`${API_BASE_URL}/${COURSES}/${id}`);
 
-export const putCourse = (data) => {
-	axios({
-	  method: 'put',
-	  url: `${API_BASE_URL}/${COURSES}/${data.id}`,
-	  data
-  });
-};
+export const updateCourse = (data) => axios.put(`${API_BASE_URL}/${COURSES}/${data.id}`, data);
+
+export const addCourse = (data) => axios.post(`${API_BASE_URL}/${COURSES}`, data);

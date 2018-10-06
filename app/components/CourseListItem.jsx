@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Panel, Col } from "react-bootstrap";
 
 const CourseListItem = ({
-  index, id, title, imagePath, price, dates, duration, open
+  id, title, imagePath, price, dates, duration, open
 }) => {
   const { normal } = price;
   const { start_date: startDate, end_date: endDate } = dates;
@@ -12,8 +12,8 @@ const CourseListItem = ({
   const endDateFormatted = new Date(endDate).toLocaleDateString("el-gr");
 
   return (
-    <Col xs={6} md={4} className={index % 3 === 0 && "clear-left"}>
-      <Panel bsStyle="primary">
+    <Col xs={12} sm={6} md={4}>
+      <Panel bsStyle="primary" className='list-item'>
         <Panel.Heading>
           <Panel.Title><h4>{ title }</h4></Panel.Title>
         </Panel.Heading>
@@ -34,7 +34,6 @@ const CourseListItem = ({
 };
 
 CourseListItem.propTypes = {
-  index: PropTypes.number.isRequired,
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   imagePath: PropTypes.string.isRequired,
