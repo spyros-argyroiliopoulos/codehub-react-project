@@ -1,37 +1,36 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { Panel, Table } from "react-bootstrap";
 import EventsTableItem from "components/EventsTableItem";
 
 const ProgramsTable = ({ title, data }) => {
   return (
-    <div className="card events-card">
-      <header className="card-header">
-        <p className="card-header-title">{ title }</p>
-      </header>
-      <div className="card-table">
-        <div className="content">
-          <table className="table is-fullwidth is-striped">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Title</th>
-                <th>Bookable</th>
-                <th>Price</th>
-                <th>Date</th>
-                <th className="has-text-right">Details</th>
-              </tr>
-            </thead>
-            <tbody>
-              { data.map((program) => <EventsTableItem key={program.id} {...program} />) }
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <footer className="card-footer">
-        <Link to="/programs" className="card-footer-item">View All</Link>
-      </footer>
-    </div>
+    <Panel bsStyle="primary">
+      <Panel.Heading>
+        <Panel.Title componentClass="h3">{ title }</Panel.Title>
+      </Panel.Heading>
+      <Panel.Body className="no-padding">
+        <Table responsive striped bordered condensed hover className="no-margin">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Title</th>
+              <th>Bookable</th>
+              <th>Price</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            { data.map((program) => <EventsTableItem key={program.id} {...program} />) }
+          </tbody>
+        </Table>
+        <Panel.Footer className="clearfix">
+          <Link to="/programs" className="btn btn-primary pull-right">View All</Link>
+        </Panel.Footer>
+      </Panel.Body>
+    </Panel>
   );
 };
 

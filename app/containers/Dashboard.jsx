@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Hero from "components/Hero";
+import { Jumbotron, Row, Col } from "react-bootstrap";
 import InfoTile from "components/InfoTile";
 import ProgramsTable from "components/ProgramsTable";
 import { fetchStats, fetchPrograms } from "../api";
@@ -26,21 +26,36 @@ class Dashboard extends Component {
     const { stats, programs } = this.state;
 
     return (
-      <div>
-        <Hero
-          title="Hello, tsevdos."
-          subtitle="I hope you are having a great day!"
-        />
-        <section className="info-tiles">
-          <div className="tile is-ancestor has-text-centered">
+      <>
+        <Row>
+          <Col xs={12}>
+            <Jumbotron>
+              <h2>Welcome to Code.Hub Dashboard!</h2>
+              <p>Manage everything and have fun!</p>
+            </Jumbotron>
+          </Col>
+        </Row>
+
+        <Row>
+          {
+            stats &&
+              stats.map(({ id, ...rest }) =>
+                <Col xs={3} key={id}>
+                  <InfoTile {...rest} />
+                </Col>
+              )
+          }
+        </Row>
+
+        <Row>
+          <Col xs={12}>
             {
-              stats &&
-                stats.map(({ id, ...rest }) => <InfoTile key={id} {...rest} />)
+              programs &&
+                <ProgramsTable title="Last 5 Programs" data={programs} />
             }
-          </div>
-        </section>
-        { programs && <ProgramsTable title="Last 5 Programs" data={programs} /> }
-      </div>
+          </Col>
+        </Row>
+      </>
     );
   }
 }

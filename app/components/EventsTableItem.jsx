@@ -16,7 +16,7 @@ const EventsTableItem = ({ id, title, open, price, dates }) => {
       <td>{ normal }</td>
       <td>{ startDateFormatted } - { endDateFormatted }</td>
       <td className="has-text-right">
-        <Link to={`/programs/${id}`} className="has-text-right">View</Link>
+        <Link to={`/programs/${id}`} className="btn btn-info btn-xs pull-right">View details</Link>
       </td>
     </tr>
   );
