@@ -25,7 +25,7 @@ class Courses extends Component {
         <Row>
           {
             courses
-              ? courses.map((course, i) =>
+              ? courses.map((course) =>
                 <CourseListItem key={course.id} {...course} />)
               : <Loader />
           }

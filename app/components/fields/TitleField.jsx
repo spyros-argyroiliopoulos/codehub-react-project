@@ -10,7 +10,7 @@ const TitleField = ({ value, onChange }) => (
     <Col sm={10}>
       <FormControl
         value={value}
-        onChange={(e) => {onChange('title', e.target.value)}}
+        onChange={(e) => {onChange("title", e.target.value);}}
         type="text"
         placeholder="Title"
       />

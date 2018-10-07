@@ -11,7 +11,7 @@ const DescriptionField = ({ value, onChange }) => (
       <textarea
         className="textarea-form"
         value={value}
-        onChange={(e) => {onChange('description', e.target.value)}}
+        onChange={(e) => {onChange("description", e.target.value);}}
         placeholder="Description"
       />
     </Col>

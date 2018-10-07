@@ -1,12 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Col, FormGroup, FormControl, ControlLabel, Checkbox, Row } from "react-bootstrap";
+import { Col, FormGroup, ControlLabel, Checkbox, Row } from "react-bootstrap";
 
 const InstructorsField = ({ value, allInstructors, onChange }) => (
   <FormGroup>
     <Col sm={12}>
       <ControlLabel>Instructors</ControlLabel>
-        <Row>
+      <Row>
         {
           allInstructors.map(({id, name}) =>
             <Col key={id} sm={6}>
@@ -22,7 +22,7 @@ const InstructorsField = ({ value, allInstructors, onChange }) => (
                       array.splice(index, 1);
                     }
                   }
-                  onChange('instructors', array)}
+                  onChange("instructors", array);}
                 }
               >
                 {`${name.first} ${name.last}`}

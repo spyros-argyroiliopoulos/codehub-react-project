@@ -7,21 +7,21 @@ import {validateForm} from "../common/validation";
 import { fetchCourses, fetchInstructors, addCourse } from "../api";
 
 const initFields = {
-  id: '',
+  id: "",
   dates: {
-    end_date: '',
-    start_date: '',
+    end_date: "",
+    start_date: "",
   },
-  description: '',
-  duration: '',
-  imagePath: '',
+  description: "",
+  duration: "",
+  imagePath: "",
   instructors: [],
   open: false,
   price: {
     early_bird: 0,
     normal: 0
   },
-  title: '',
+  title: "",
 };
 
 class Header extends Component {
@@ -46,7 +46,7 @@ class Header extends Component {
         ...prevState.editFields,
         [type]: value
       }
-    }))
+    }));
   }
 
   addCourse = async () => {
@@ -104,8 +104,8 @@ class Header extends Component {
                 </Nav>
                 <Nav pullRight>
                   <NavItem onClick={this.handleAddModal}>Add new course</NavItem>
-                 </Nav>
-               </Navbar.Collapse>
+                </Nav>
+              </Navbar.Collapse>
             </Col>
           </Row>
         </Navbar>

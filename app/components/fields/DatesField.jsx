@@ -12,11 +12,11 @@ const DatesField = ({ value, onChange }) => (
         </Col>
         <Col sm={4}>
           <FormControl
-            value={value.start_date || ''}
+            value={value.start_date || ""}
             onChange={(e) => {
               const obj = {...value};
               obj.start_date = e.target.value;
-              onChange('dates', obj)}
+              onChange("dates", obj);}
             }
             type="text"
             placeholder="yyyy-mm-dd"
@@ -27,11 +27,11 @@ const DatesField = ({ value, onChange }) => (
         </Col>
         <Col sm={4}>
           <FormControl
-            value={value.end_date || ''}
+            value={value.end_date || ""}
             onChange={(e) => {
               const obj = {...value};
               obj.end_date = e.target.value;
-              onChange('dates', obj)}
+              onChange("dates", obj);}
             }
             type="text"
             placeholder="yyyy-mm-dd"

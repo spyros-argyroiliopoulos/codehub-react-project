@@ -10,7 +10,7 @@ const ImageField = ({ value, onChange }) => (
     <Col sm={10}>
       <FormControl
         value={value}
-        onChange={(e) => {onChange('imagePath', e.target.value)}}
+        onChange={(e) => {onChange("imagePath", e.target.value);}}
         type="text"
         placeholder="Image path"
       />

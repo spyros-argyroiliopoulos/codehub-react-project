@@ -8,7 +8,7 @@ import DescriptionField from "./fields/DescriptionField";
 import InstructorsField from "./fields/InstructorsField";
 import DatesField from "./fields/DatesField";
 import PriceField from "./fields/PriceField";
-import { Form, Col, FormGroup, FormControl, Panel, Checkbox, ControlLabel } from "react-bootstrap";
+import {Form} from "react-bootstrap";
 
 const CourseForm = ({ title, duration, imagePath, open, instructors, allInstructors, description,
   dates, price, onChangeField }) => (

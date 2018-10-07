@@ -12,11 +12,11 @@ const PriceField = ({ value, onChange }) => (
         </Col>
         <Col sm={3}>
           <FormControl
-            value={value.early_bird || ''}
+            value={value.early_bird || ""}
             onChange={(e) => {
               const obj = {...value};
               obj.early_bird = parseInt(e.target.value, 10);
-              onChange('price', obj)}
+              onChange("price", obj);}
             }
             type="number"
             placeholder="Early Bird"
@@ -27,18 +27,19 @@ const PriceField = ({ value, onChange }) => (
         </Col>
         <Col sm={3}>
           <FormControl
-            value={value.normal || ''}
+            value={value.normal || ""}
             onChange={(e) => {
               const obj = {...value};
               obj.normal = parseInt(e.target.value, 10);
-              onChange('price', obj)}
+              onChange("price", obj);}
             }
             type="number"
             placeholder="Normal"
           />
         </Col>
-      </FormGroup></Panel.Body>
-    </Panel>
+      </FormGroup>
+    </Panel.Body>
+  </Panel>
 );
 
 PriceField.propTypes = {

@@ -52,7 +52,8 @@ CoursesTable.propTypes = {
       start_date: PropTypes.string.isRequired,
       end_date: PropTypes.string.isRequired,
     }).isRequired
-  }))
+  })),
+  lastCourseCounter: PropTypes.number.isRequired
 };
 
 export default CoursesTable;

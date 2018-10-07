@@ -10,7 +10,7 @@ const DurationField = ({ value, onChange }) => (
     <Col sm={10}>
       <FormControl
         value={value}
-        onChange={(e) => {onChange('duration', e.target.value)}}
+        onChange={(e) => {onChange("duration", e.target.value);}}
         type="text"
         placeholder="Duration"
       />

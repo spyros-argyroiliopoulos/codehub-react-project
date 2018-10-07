@@ -56,7 +56,7 @@ class Course extends Component {
         ...prevState.editFields,
         [type]: value
       }
-    }))
+    }));
   }
 
   render() {
@@ -99,11 +99,11 @@ class Course extends Component {
         {
           course
             ? <CourseItem
-                {...course}
-                instructors={courseInstructors}
-                handleEdit={this.handleEditModal}
-                handleDelete={this.handleDeleteModal}
-              />
+              {...course}
+              instructors={courseInstructors}
+              handleEdit={this.handleEditModal}
+              handleDelete={this.handleDeleteModal}
+            />
             : <Loader />
         }
       </>

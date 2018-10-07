@@ -24,6 +24,7 @@ ModalForm.propTypes = {
   onAction: PropTypes.func.isRequired,
   modalTitle: PropTypes.string.isRequired,
   buttonTitle: PropTypes.string.isRequired,
+  submitIsEnabled: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired
 };
 

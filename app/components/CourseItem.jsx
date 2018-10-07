@@ -35,7 +35,7 @@ const CourseItem = ({
       {
         instructors.length > 0 ?
           instructors.map((instructor) =>
-            <Instructor key={instructor.id} {...instructor} />) : 'None'
+            <Instructor key={instructor.id} {...instructor} />) : "None"
       }
     </div>
   );
@@ -57,6 +57,7 @@ CourseItem.propTypes = {
   open: PropTypes.bool.isRequired,
   description: PropTypes.string.isRequired,
   instructors: PropTypes.array.isRequired,
+  handleEdit: PropTypes.func.isRequired,
   handleDelete: PropTypes.func.isRequired
 };
 

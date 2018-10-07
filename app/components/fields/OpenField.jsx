@@ -7,7 +7,7 @@ const OpenField = ({ value, onChange }) => (
     <Col smOffset={2} sm={10}>
       <Checkbox
         checked={value}
-        onChange={(e) => {onChange('open', e.target.checked)}}
+        onChange={(e) => {onChange("open", e.target.checked);}}
       >
         Open
       </Checkbox>

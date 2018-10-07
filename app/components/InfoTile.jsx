@@ -4,9 +4,9 @@ import { Panel, Badge } from "react-bootstrap";
 
 const InfoTile = ({ amount, title }) => (
   <div>
-  	<Panel>
+    <Panel>
       <Panel.Body>{ title }: <Badge pullRight>{ amount }</Badge></Panel.Body>
-  	</Panel>
+    </Panel>
 
   </div>
 );
