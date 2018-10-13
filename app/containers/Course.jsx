@@ -1,108 +1,99 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
-import { Modal, Button } from "react-bootstrap";
+import CourseForm from "containers/CourseForm";
 import Loader from "components/Loader/Loader";
 import CourseItem from "components/CourseItem";
-import CourseForm from "components/CourseForm";
-import ModalForm from "components/ModalForm";
-import {validateForm} from "../common/validation";
-import { fetchCourse, fetchInstructors, fetchCourseInstructors, updateCourse, deleteCourse as deleteCourseApi } from "../api";
+import { Modal, Button } from "react-bootstrap";
+import { fetchCourse, fetchInstructors, fetchCourseInstructors, updateCourse, deleteCourse } from "../api";
 
 class Course extends Component {
   state = {
     course: null,
     courseInstructors: null,
     instructors: null,
-    deleteModalIsShown: false,
-    editModalIsShown: false,
-    editFields: {}
+    showDeleteModal: false,
+    showEditModal: false
   };
 
   async componentDidMount() {
     const { match } = this.props;
-    const course = await fetchCourse(match.params.id);
+    const data = await Promise.all([fetchCourse(match.params.id), fetchInstructors()]);
+    const course = data[0];
+    const instructors = data[1];
     const courseInstructors = await fetchCourseInstructors(course.instructors);
-    const instructors = await fetchInstructors();
-    this.setState({ course, instructors, courseInstructors, editFields: {...course} });
+
+    this.setState({ course, courseInstructors, instructors });
   }
 
-  deleteCourse = async () => {
+  handleDeleteCourse = async () => {
     const { course } = this.state;
     const { history } = this.props;
 
-    await deleteCourseApi(course.id);
+    await deleteCourse(course.id);
     history.push("/courses");
   }
 
-  handleEditModal = () => {
-    this.setState((prevState) => ({ editModalIsShown: !prevState.editModalIsShown }));
-  }
-
-  handleDeleteModal = () => {
-    this.setState((prevState) => ({ deleteModalIsShown: !prevState.deleteModalIsShown }));
-  }
-
-  updateCourse = async () => {
-    const { editFields } = this.state;
+  handleUpdateCourse = async (course) => {
     const { history } = this.props;
+    const { price: { early_bird, normal } } = course;
+    const newPrice = {
+      early_bird: parseInt(early_bird, 10),
+      normal: parseInt(normal, 10),
+    };
+    const data = { ...course, price: newPrice };
 
-    await updateCourse(editFields);
+    await updateCourse(data);
     history.push("/courses");
   }
 
-  onChangeField = (type, value) => {
-    this.setState((prevState) => ({
-      editFields: {
-        ...prevState.editFields,
-        [type]: value
-      }
-    }));
+  toggleDeleteModal = () => {
+    this.setState((prevState) => ({ showDeleteModal: !prevState.showDeleteModal }));
+  }
+
+  toggleEditModal = () => {
+    this.setState((prevState) => ({ showEditModal: !prevState.showEditModal }));
   }
 
   render() {
-    const { course, instructors, courseInstructors, deleteModalIsShown, editModalIsShown, editFields} = this.state;
+    const { course, courseInstructors, showEditModal, showDeleteModal } = this.state;
 
     return (
       <>
         {
           course &&
-            <ModalForm
-              addModalIsShown={editModalIsShown}
-              handleAddModal={this.handleEditModal}
-              onAction={this.updateCourse}
-              modalTitle="Edit Course"
-              buttonTitle="Edit"
-              submitIsEnabled={validateForm(editFields)}
-            >
-              <CourseForm
-                {...editFields}
-                allInstructors={instructors}
-                onChangeField={this.onChangeField}
-              />
-            </ModalForm>
+            <Modal show={showEditModal} onHide={this.toggleEditModal} bsSize="lg">
+              <Modal.Header closeButton>
+                <Modal.Title>{`Edit Course: ${course.title}`}</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <CourseForm course={course} handleCourse={this.handleUpdateCourse} />
+              </Modal.Body>
+            </Modal>
         }
+
         {
           course &&
-            <Modal show={deleteModalIsShown} onHide={this.handleDeleteModal}>
+            <Modal show={showDeleteModal} onHide={this.toggleDeleteModal}>
               <Modal.Header closeButton>
                 <Modal.Title>Delete Course</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <h4>Are you sure you want to delete &quot;{ course.title }&quot; course?</h4>
+                <h4>{`Are you sure you want to delete "${course.title}" course?`}</h4>
               </Modal.Body>
               <Modal.Footer>
-                <Button onClick={this.handleDeleteModal}>Cancel</Button>
-                <Button bsStyle="primary" onClick={this.deleteCourse}>Delete</Button>
+                <Button onClick={this.toggleDeleteModal}>Cancel</Button>
+                <Button bsStyle="primary" onClick={this.handleDeleteCourse}>Delete</Button>
               </Modal.Footer>
             </Modal>
         }
+
         {
           course
             ? <CourseItem
               {...course}
               instructors={courseInstructors}
-              handleEdit={this.handleEditModal}
-              handleDelete={this.handleDeleteModal}
+              handleDelete={this.toggleDeleteModal}
+              handleEdit={this.toggleEditModal}
             />
             : <Loader />
         }

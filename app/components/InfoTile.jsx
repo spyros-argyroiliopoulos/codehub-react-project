@@ -5,9 +5,8 @@ import { Panel, Badge } from "react-bootstrap";
 const InfoTile = ({ amount, title }) => (
   <div>
     <Panel>
-      <Panel.Body>{ title }: <Badge pullRight>{ amount }</Badge></Panel.Body>
+      <Panel.Body>{ title.toUpperCase() }: <Badge pullRight>{ amount }</Badge></Panel.Body>
     </Panel>
-
   </div>
 );
 

@@ -3,9 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Panel, Col } from "react-bootstrap";
 
-const CourseListItem = ({
-  id, title, imagePath, price, dates, duration, open
-}) => {
+const CourseListItem = ({ id, title, imagePath, price, dates, duration, open }) => {
   const { normal } = price;
   const { start_date: startDate, end_date: endDate } = dates;
   const startDateFormatted = new Date(startDate).toLocaleDateString("el-gr");

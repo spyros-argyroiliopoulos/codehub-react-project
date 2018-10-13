@@ -4,8 +4,6 @@ import InfoTile from "components/InfoTile";
 import CoursesTable from "components/CoursesTable";
 import { fetchStats, fetchCourses } from "../api";
 
-const lastCourseCounter = 5;
-
 class Dashboard extends Component {
   state = {
     stats: null,
@@ -13,14 +11,17 @@ class Dashboard extends Component {
   };
 
   async componentDidMount() {
-    const stats = await fetchStats();
-    const courses = await fetchCourses();
+    const data = await Promise.all([fetchStats(), fetchCourses()]);
+    const stats = data[0];
+    const courses = data[1];
 
     this.setState({ stats, courses });
   }
 
   render() {
     const { stats, courses } = this.state;
+    const lastFiveCourses = courses ? courses.slice(courses.length - 5, courses.length) : [];
+
     return (
       <>
         <Row>
@@ -34,12 +35,11 @@ class Dashboard extends Component {
 
         <Row>
           {
-            stats &&
-              stats.map(({ id, ...rest }) =>
-                <Col key={id} xs={12} sm={6} md={3}>
-                  <InfoTile {...rest} />
-                </Col>
-              )
+            stats && stats.map(({ id, ...rest }) =>
+              <Col key={id} xs={12} sm={6} md={3}>
+                <InfoTile {...rest} />
+              </Col>
+            )
           }
         </Row>
 
@@ -47,10 +47,7 @@ class Dashboard extends Component {
           <Col xs={12}>
             {
               courses &&
-                <CoursesTable
-                  title={`Last ${lastCourseCounter} Courses`}
-                  data={courses}
-                  lastCourseCounter={lastCourseCounter}/>
+                <CoursesTable title="Last 5 Courses" data={lastFiveCourses} />
             }
           </Col>
         </Row>

@@ -5,8 +5,6 @@ const STATS = "stats";
 const COURSES = "courses";
 const INSTRUCTORS = "instructors";
 
-
-// Requests
 export const fetchStats = () => axios.get(`${API_BASE_URL}/${STATS}`)
   .then(({ data }) => data);
 
