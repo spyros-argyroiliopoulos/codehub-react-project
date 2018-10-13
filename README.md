@@ -4,9 +4,12 @@
 
 The application is using the below technologies:
 
-* [React](https://facebook.github.io/react/) - for building the client-side app and components
 * [Webpack](https://webpack.github.io/) - for building and bundling
 * [Babel.js](https://babeljs.io/) - for using ES6 features, compiling JSX, etc.
+* [React](https://facebook.github.io/react/) - for building the client-side app and components
+* [React Router](https://github.com/ReactTraining/react-router) - for client-side (browser) routing
+* [Bootstrap](https://getbootstrap.com/) and [React-Bootstrap] - for UI
+* [axios](https://github.com/axios/axios) - for HTTP requests
 * [ESLint](http://eslint.org/) - for ES6 linting and best practices
 
 
