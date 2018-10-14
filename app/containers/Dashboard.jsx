@@ -20,7 +20,7 @@ class Dashboard extends Component {
 
   render() {
     const { stats, courses } = this.state;
-    const lastFiveCourses = courses ? courses.slice(courses.length - 5, courses.length) : [];
+    const lastFiveCourses = courses ? courses.slice(0, 5) : [];
 
     return (
       <>
