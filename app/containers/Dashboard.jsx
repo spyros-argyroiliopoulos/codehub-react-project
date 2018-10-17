@@ -11,10 +11,7 @@ class Dashboard extends Component {
   };
 
   async componentDidMount() {
-    const data = await Promise.all([fetchStats(), fetchCourses()]);
-    const stats = data[0];
-    const courses = data[1];
-
+    const [stats, courses] = await Promise.all([fetchStats(), fetchCourses()]);
     this.setState({ stats, courses });
   }
 

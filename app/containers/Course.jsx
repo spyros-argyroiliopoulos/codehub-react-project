@@ -17,9 +17,7 @@ class Course extends Component {
 
   async componentDidMount() {
     const { match } = this.props;
-    const data = await Promise.all([fetchCourse(match.params.id), fetchInstructors()]);
-    const course = data[0];
-    const instructors = data[1];
+    const [course, instructors] = await Promise.all([fetchCourse(match.params.id), fetchInstructors()]);
     const courseInstructors = await fetchCourseInstructors(course.instructors);
 
     this.setState({ course, courseInstructors, instructors });
