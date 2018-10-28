@@ -1,26 +1,24 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
 import CourseForm from "containers/CourseForm";
 import Loader from "components/Loader/Loader";
 import CourseItem from "components/CourseItem";
 import { Modal, Button } from "react-bootstrap";
-import { fetchCourse, fetchInstructors, fetchCourseInstructors, updateCourse, deleteCourse } from "../api";
+import { fetchCourse, fetchCourseInstructors, updateCourse, deleteCourse } from "../api";
 
 class Course extends Component {
   state = {
     course: null,
     courseInstructors: null,
-    instructors: null,
     showDeleteModal: false,
     showEditModal: false
   };
 
   async componentDidMount() {
     const { match } = this.props;
-    const [course, instructors] = await Promise.all([fetchCourse(match.params.id), fetchInstructors()]);
+    const course = await fetchCourse(match.params.id);
     const courseInstructors = await fetchCourseInstructors(course.instructors);
 
-    this.setState({ course, courseInstructors, instructors });
+    this.setState({ course, courseInstructors });
   }
 
   handleDeleteCourse = async () => {
@@ -100,4 +98,4 @@ class Course extends Component {
   }
 }
 
-export default withRouter(Course);
+export default Course;

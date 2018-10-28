@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
 import { Form, FormGroup, Checkbox, ControlLabel, Button } from "react-bootstrap";
 import TextInput from "components/CourseFormFields/TextInput";
 import TextInputPrice from "components/CourseFormFields/TextInputPrice";
@@ -158,4 +157,4 @@ CourseForm.propTypes = {
   handleCourse: PropTypes.func.isRequired
 };
 
-export default withRouter(CourseForm);
+export default CourseForm;
